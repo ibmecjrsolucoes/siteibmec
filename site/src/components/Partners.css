@@ -1,0 +1,85 @@
+/* ===================================
+   Partners / Logos Carousel
+   =================================== */
+
+.partners {
+  padding: var(--space-2xl) 0;
+  overflow: hidden;
+}
+
+.partners__track-wrapper {
+  position: relative;
+  overflow: hidden;
+  margin-top: var(--space-lg);
+}
+
+.partners__track-wrapper::before,
+.partners__track-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.partners__track-wrapper::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--color-gray-50), transparent);
+}
+
+.partners__track-wrapper::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--color-gray-50), transparent);
+}
+
+.partners__track {
+  display: flex;
+  gap: var(--space-2xl);
+  animation: scrollLogos 20s linear infinite;
+  width: max-content;
+}
+
+.partners__track:hover {
+  animation-play-state: paused;
+}
+
+.partners__logo {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.partners__logo:hover {
+  box-shadow: var(--shadow-md);
+  transform: scale(1.05);
+}
+
+.partners__logo img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(30%);
+  opacity: 0.8;
+  transition: all var(--transition-base);
+}
+
+.partners__logo:hover img {
+  filter: grayscale(0);
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partners__track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

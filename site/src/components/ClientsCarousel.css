@@ -1,0 +1,69 @@
+/* =============================================
+   ClientsCarousel — loop infinito 28s
+   ============================================= */
+
+.clients-carousel {
+  overflow: hidden;
+  padding-bottom: var(--space-3xl);
+}
+
+/* Wrapper com overflow hidden para mascarar as bordas */
+.carousel__wrapper {
+  position: relative;
+  overflow: hidden;
+  /* Fade nas bordas laterais */
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 8%,
+    black 92%,
+    transparent 100%
+  );
+}
+
+/* Track que anima */
+.carousel__track {
+  display: flex;
+  gap: var(--space-xl);
+  width: max-content;
+  animation: scrollLogos 28s linear infinite;
+}
+
+/* Pausa no hover */
+.carousel__wrapper:hover .carousel__track {
+  animation-play-state: paused;
+}
+
+/* Item individual */
+.carousel__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 64px;
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  background: var(--color-white);
+  border: 1px solid var(--color-gray-100);
+  transition: all var(--transition-base);
+  flex-shrink: 0;
+  filter: grayscale(1) opacity(0.55);
+}
+
+.carousel__item:hover {
+  filter: grayscale(0) opacity(1);
+  border-color: rgba(4, 219, 242, 0.35);
+  box-shadow: 0 4px 16px rgba(4, 219, 242, 0.12);
+  transform: translateY(-2px);
+}
+
+.carousel__logo-svg {
+  width: 100px;
+  height: 40px;
+}

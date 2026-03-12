@@ -1,0 +1,43 @@
+/* =============================================
+   ScrollToTop — mobile only (≤ 768px)
+   ============================================= */
+
+/* Oculto em desktop */
+.scroll-to-top {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .scroll-to-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 88px; /* acima do FloatingChat toggle */
+    right: 16px;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--gradient-main);
+    color: var(--color-white);
+    border: none;
+    cursor: pointer;
+    z-index: calc(var(--z-float, 900) - 1);
+    box-shadow: 0 4px 16px rgba(4, 219, 242, 0.35);
+    /* Oculto por padrão até scroll > 300px */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .scroll-to-top--visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .scroll-to-top:active {
+    transform: scale(0.92);
+  }
+}

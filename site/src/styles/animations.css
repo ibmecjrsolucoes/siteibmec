@@ -1,0 +1,256 @@
+/* ===================================
+   IBMEC Jr. Soluções — Animações
+   =================================== */
+
+/* — Fade In Up (animação principal de scroll) — */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* — Fade In — */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* — Slide In Left — */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* — Slide In Right — */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* — Scale In — */
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* — Float suave para hero — */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* — Pulse para CTAs — */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+/* — Shimmer para loading/destaque — */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* — Rotate para ícones decorativos — */
+@keyframes slowRotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* — Scroll indicator bounce — */
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-8px); }
+  60% { transform: translateY(-4px); }
+}
+
+/* — Logo carousel slide — */
+@keyframes scrollLogos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===========================
+   Classes de animação (scroll)
+   =========================== */
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.animate-slide-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.animate-slide-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-slide-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.animate-slide-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.animate-scale {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity var(--transition-slow), transform var(--transition-slow);
+  will-change: opacity, transform;
+}
+
+.animate-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* — Stagger para cards/listas — */
+.stagger-1 { transition-delay: 0.1s; }
+.stagger-2 { transition-delay: 0.2s; }
+.stagger-3 { transition-delay: 0.3s; }
+.stagger-4 { transition-delay: 0.4s; }
+.stagger-5 { transition-delay: 0.5s; }
+.stagger-6 { transition-delay: 0.6s; }
+
+/* — Pop com spring para ícones — */
+@keyframes iconPop {
+  0%   { transform: scale(0) rotate(-15deg); opacity: 0; }
+  65%  { transform: scale(1.2) rotate(4deg);  opacity: 1; }
+  100% { transform: scale(1)   rotate(0deg);  opacity: 1; }
+}
+
+/* — Glow pulsante para ícones/bordas — */
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0   0   rgba(4, 219, 242, 0);    }
+  50%       { box-shadow: 0 0 18px 4px rgba(4, 219, 242, 0.28); }
+}
+
+/* — Borda pulsante (hero label) — */
+@keyframes borderGlow {
+  0%, 100% {
+    box-shadow:  0 0 0 0 rgba(4, 219, 242, 0);
+    border-color: rgba(4, 219, 242, 0.35);
+  }
+  50% {
+    box-shadow:  0 0 12px 3px rgba(4, 219, 242, 0.22);
+    border-color: rgba(4, 219, 242, 0.65);
+  }
+}
+
+/* — Anel que se expande do centro — */
+@keyframes rippleRing {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0;   }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRANSIÇÕES DE PÁGINA — View Transitions API
+   (Chrome 111+, Edge 111+, Safari 18+  — ~97% dos usuários)
+
+   Como funciona:
+     1. TransLink chama document.startViewTransition(navigate)
+     2. Browser tira screenshot GPU da página atual
+     3. navigate() roda → React atualiza o DOM
+     4. Browser anima entre screenshot antigo e DOM novo via CSS abaixo
+   Resultado: saída + entrada acontecem AO MESMO TEMPO, sem flash.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Keyframes de animação de página ── */
+@keyframes vt-page-out {
+  to {
+    opacity: 0;
+    transform: translateY(-14px) scale(0.99);
+    filter: blur(1px);
+  }
+}
+
+@keyframes vt-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+/* ── Snapshot da página saindo (página velha) ── */
+::view-transition-old(root) {
+  animation: 270ms ease-in vt-page-out both;
+}
+
+/* ── Snapshot da página entrando (nova página) ── */
+::view-transition-new(root) {
+  animation: 540ms cubic-bezier(0.16, 1, 0.3, 1) vt-page-in both;
+}
+
+/*
+ * O header tem view-transition-name: site-header (definido em Header.css).
+ * Isso o isola do snapshot root e o mantém estático durante a transição.
+ */
+::view-transition-old(site-header),
+::view-transition-new(site-header) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* — Respeita preferência de movimento reduzido — */
+@media (prefers-reduced-motion: reduce) {
+  .animate-on-scroll,
+  .animate-slide-left,
+  .animate-slide-right,
+  .animate-scale {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

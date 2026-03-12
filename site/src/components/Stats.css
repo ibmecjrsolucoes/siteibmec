@@ -1,0 +1,121 @@
+/* ===================================
+   Stats / Contadores
+   =================================== */
+
+.stats {
+  padding: var(--space-3xl) 0;
+  position: relative;
+}
+
+.stats::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    rgba(4, 219, 242, 0.07) 0%,
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.stats__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+}
+
+.stats__card {
+  text-align: center;
+  padding: var(--space-xl) var(--space-md);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all var(--transition-slow);
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.stats__card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.stats__card:hover {
+  background: rgba(4, 219, 242, 0.07);
+  border-color: rgba(4, 219, 242, 0.35);
+  transform: translateY(-4px);
+}
+
+.stats__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin: 0 auto var(--space-sm);
+  background: rgba(4, 219, 242, 0.1);
+  border: 1px solid rgba(4, 219, 242, 0.2);
+  border-radius: var(--radius-md);
+  color: var(--color-primary-2);
+  transition: background var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.stats__card.visible .stats__icon {
+  animation: iconPop 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.stats__card.stagger-1.visible .stats__icon { animation-delay: 0.15s; }
+.stats__card.stagger-2.visible .stats__icon { animation-delay: 0.25s; }
+.stats__card.stagger-3.visible .stats__icon { animation-delay: 0.35s; }
+.stats__card.stagger-4.visible .stats__icon { animation-delay: 0.45s; }
+
+.stats__card:hover .stats__icon {
+  background: rgba(4, 219, 242, 0.18);
+  border-color: rgba(4, 219, 242, 0.45);
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.stats__number {
+  display: block;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: var(--fw-extrabold);
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stats__label {
+  display: block;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-semibold);
+  color: var(--color-white);
+  margin-bottom: var(--space-xs);
+}
+
+.stats__description {
+  font-size: var(--fs-small);
+  color: var(--color-gray-300);
+  line-height: var(--lh-normal);
+  margin: 0;
+}
+
+/* — Responsivo — */
+@media (max-width: 968px) {
+  .stats__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .stats__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .stats__card {
+    padding: var(--space-lg) var(--space-md);
+  }
+}

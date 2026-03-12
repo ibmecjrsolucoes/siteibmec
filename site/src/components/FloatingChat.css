@@ -1,0 +1,281 @@
+/* =============================================
+   FloatingChat — Leadster-style, bottom-left
+   ============================================= */
+
+.floating-chat {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: var(--z-float, 900);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-sm);
+}
+
+/* — Balão pré-abertura — */
+.floating-chat__teaser {
+  background: var(--color-white);
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
+  padding: 0.55rem 1rem;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-gray-900);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  animation: fadeInUp 0.5s 3s ease both;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* — Janela do chat — */
+.floating-chat__window {
+  width: clamp(300px, 90vw, 360px);
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  animation: slideUpFade 0.35s ease both;
+  max-height: 480px;
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* — Header — */
+.floating-chat__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  background: var(--gradient-main);
+  color: var(--color-white);
+}
+
+.floating-chat__header-info {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.floating-chat__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+.floating-chat__avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.floating-chat__header-name {
+  display: block;
+  font-weight: var(--fw-bold);
+  font-size: var(--fs-small);
+  line-height: 1.2;
+}
+
+.floating-chat__header-status {
+  display: block;
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.floating-chat__close {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 50%;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.floating-chat__close:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* — Mensagens — */
+.floating-chat__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  background: #f4f7fa;
+  scroll-behavior: smooth;
+}
+
+.floating-chat__msg {
+  max-width: 86%;
+  align-self: flex-start;
+  animation: fadeInUp 0.3s ease both;
+}
+
+.floating-chat__msg--bot p {
+  background: var(--color-white);
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  padding: 0.6rem 0.9rem;
+  font-size: var(--fs-small);
+  color: var(--color-gray-900);
+  line-height: 1.55;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  margin: 0;
+}
+
+/* — Dots de digitação — */
+.floating-chat__msg--typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-white);
+  padding: 0.65rem 1rem;
+  border-radius: 0 var(--radius-md) var(--radius-md) var(--radius-md);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.floating-chat__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-primary-3);
+  animation: typingBounce 1.2s ease-in-out infinite;
+}
+
+.floating-chat__dot:nth-child(2) { animation-delay: 0.2s; }
+.floating-chat__dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes typingBounce {
+  0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+  30% { transform: translateY(-5px); opacity: 1; }
+}
+
+/* — CTA button dentro do chat — */
+.floating-chat__cta-btn {
+  font-size: 0.8rem;
+  padding: 0.6rem 1rem;
+  width: 100%;
+  animation: fadeInUp 0.4s ease both;
+}
+
+/* — Input area — */
+.floating-chat__input-area {
+  display: flex;
+  border-top: 1px solid var(--color-gray-100);
+  background: var(--color-white);
+}
+
+.floating-chat__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0.75rem var(--space-md);
+  font-size: var(--fs-small);
+  color: var(--color-gray-900);
+  background: transparent;
+}
+
+.floating-chat__input::placeholder {
+  color: var(--color-gray-300);
+}
+
+.floating-chat__send {
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary-3);
+  transition: color var(--transition-fast);
+}
+
+.floating-chat__send:hover {
+  color: var(--color-primary-2);
+}
+
+/* — Botão toggle — */
+.floating-chat__toggle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: transparent;
+  border: 3px solid var(--color-primary-2, #04DBF2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 20px rgba(4, 219, 242, 0.4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  align-self: flex-start;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
+  color: var(--color-white);
+}
+
+.floating-chat__toggle-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 50%;
+}
+
+/* Indicador verde de online */
+.floating-chat__toggle::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  right: 3px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 2px solid white;
+  pointer-events: none;
+}
+
+/* Quando aberto, mostra X sobre fundo gradiente */
+.floating-chat--open .floating-chat__toggle {
+  background: var(--gradient-main);
+  overflow: visible;
+}
+
+.floating-chat--open .floating-chat__toggle::after {
+  display: none;
+}
+
+.floating-chat__toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(4, 219, 242, 0.55);
+}
+
+/* ================================
+   Mobile
+   ================================ */
+@media (max-width: 480px) {
+  .floating-chat {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .floating-chat__window {
+    width: calc(100vw - 32px);
+  }
+}

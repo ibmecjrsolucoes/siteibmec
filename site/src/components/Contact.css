@@ -1,0 +1,208 @@
+/* ===================================
+   Contact / Contato
+   =================================== */
+
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* — Info — */
+.contact__info .section-title {
+  margin-bottom: var(--space-sm);
+}
+
+.contact__text {
+  color: var(--color-gray-500);
+  line-height: var(--lh-loose);
+  margin-bottom: var(--space-lg);
+}
+
+.contact__details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xl);
+}
+
+.contact__detail {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+}
+
+.contact__detail-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: rgba(4, 219, 242, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary-3);
+}
+
+.contact__detail strong {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  color: var(--color-primary-dark);
+}
+
+.contact__detail span,
+.contact__detail a {
+  font-size: var(--fs-small);
+  color: var(--color-gray-400);
+}
+
+.contact__detail a:hover {
+  color: var(--color-primary-3);
+}
+
+.contact__whatsapp-btn {
+  background-color: #25D366;
+  color: var(--color-white);
+  gap: var(--space-xs);
+}
+
+.contact__whatsapp-btn:hover {
+  background-color: #20BD5A;
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+}
+
+/* — Form — */
+.contact__form-wrapper {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: var(--space-2xl);
+  border: 1px solid var(--color-gray-100);
+}
+
+.contact__form-title {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+}
+
+.contact__field {
+  margin-bottom: var(--space-md);
+}
+
+.contact__field label {
+  display: block;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  color: var(--color-gray-500);
+  margin-bottom: 6px;
+}
+
+.contact__field input,
+.contact__field select,
+.contact__field textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-sm);
+  background: var(--color-gray-50);
+  color: var(--color-gray-900);
+  transition: all var(--transition-fast);
+  font-size: var(--fs-small);
+}
+
+.contact__field input:focus,
+.contact__field select:focus,
+.contact__field textarea:focus {
+  outline: none;
+  border-color: var(--color-primary-2);
+  box-shadow: 0 0 0 3px rgba(4, 219, 242, 0.18);
+  background: var(--color-white);
+}
+
+.contact__field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.contact__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-md);
+}
+
+.contact__submit {
+  width: 100%;
+  margin-top: var(--space-sm);
+}
+
+/* — Success — */
+.contact__success {
+  text-align: center;
+  padding: var(--space-3xl) var(--space-lg);
+}
+
+.contact__success-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #25D366, #20BD5A);
+  color: var(--color-white);
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-md);
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.contact__success h3 {
+  color: var(--color-primary-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.contact__success p {
+  color: var(--color-gray-400);
+}
+
+/* — Responsivo — */
+@media (max-width: 968px) {
+  .contact__grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .contact__info {
+    text-align: center;
+  }
+
+  .contact__info .section-label {
+    text-align: center;
+  }
+
+  .contact__info .section-title {
+    text-align: center !important;
+  }
+
+  .contact__details {
+    align-items: center;
+  }
+
+  .contact__whatsapp-btn {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact__form-wrapper {
+    padding: var(--space-lg);
+  }
+
+  .contact__row {
+    grid-template-columns: 1fr;
+  }
+}

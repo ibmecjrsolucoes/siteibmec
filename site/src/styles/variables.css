@@ -1,0 +1,93 @@
+/* ===================================
+   IBMEC Jr. Soluções — Design Tokens
+   =================================== */
+
+:root {
+  /* — Paleta Principal (rebrand 2026) — */
+  --color-primary-1: #6EC1E3;
+  --color-primary-2: #04DBF2;
+  --color-primary-3: #139CB8;
+  --color-primary-dark: #0D2B38;
+  --color-primary: #139CB8;
+  --color-primary-light: #6EC1E3;
+  /* manter compat. com código anterior */
+  --color-accent: #04DBF2;
+  --color-accent-light: #6EC1E3;
+  --color-accent-dark: #139CB8;
+
+  /* — Gradientes — */
+  --gradient-main: linear-gradient(135deg, #139CB8, #04DBF2);
+  --gradient-hero-overlay: rgba(5, 20, 35, 0.72);
+  --gradient-cta-bg: #0D2B38;
+
+  /* — Neutros — */
+  --color-white: #FFFFFF;
+  --color-gray-50: #F8F8F8;
+  --color-gray-100: #EFEFEF;
+  --color-gray-200: #D9D9D9;
+  --color-gray-300: #aaaaaa;
+  --color-gray-400: #777777;
+  --color-gray-500: #555555;
+  --color-gray-900: #1A1A1A;
+
+  /* — Tipografia — */
+  --font-heading: 'Barlow Condensed', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: 'Space Grotesk', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --fs-display: clamp(2.5rem, 5vw, 4rem);
+  --fs-h1: clamp(2rem, 4vw, 3rem);
+  --fs-h2: clamp(1.75rem, 3.5vw, 2.5rem);
+  --fs-h3: clamp(1.25rem, 2.5vw, 1.5rem);
+  --fs-body: clamp(1rem, 1.5vw, 1.125rem);
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.6;
+  --lh-loose: 1.8;
+
+  /* — Espaçamento — */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+  --space-4xl: 8rem;
+
+  /* — Layout — */
+  --max-width: 1200px;
+  --max-width-narrow: 900px;
+  --container-padding: clamp(1rem, 5vw, 2rem);
+  --header-height: 100px;
+
+  /* — Bordas e Sombras — */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+
+  --shadow-sm: 0 1px 4px rgba(19, 156, 184, 0.08);
+  --shadow-md: 0 4px 14px rgba(19, 156, 184, 0.14);
+  --shadow-lg: 0 8px 32px rgba(19, 156, 184, 0.18);
+  --shadow-xl: 0 16px 50px rgba(13, 43, 56, 0.22);
+  --shadow-glow: 0 0 32px rgba(4, 219, 242, 0.35);
+
+  /* — Transições — */
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* — Z-index — */
+  --z-header: 100;
+  --z-overlay: 200;
+  --z-modal: 300;
+}
