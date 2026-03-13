@@ -255,6 +255,7 @@
   cursor: pointer;
   z-index: calc(var(--z-overlay) + 1);
   transition: color var(--transition-fast);
+  z-index: 999;
 }
 
 .header__hamburger:hover {
@@ -267,7 +268,6 @@
   inset: 0;
   background: rgba(5, 20, 35, 0.6);
   z-index: var(--z-overlay);
-  backdrop-filter: blur(4px);
 }
 
 /* =================================
@@ -296,9 +296,9 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-xl);
-    z-index: var(--z-overlay);
+    z-index: 999;
     transition: right var(--transition-base);
-    padding: var(--space-2xl) var(--space-lg);
+
   }
 
   .header__nav--open {
@@ -338,14 +338,5 @@
   /* No mobile, header sempre com fundo para legibilidade */
   .header {
     background: rgba(5, 20, 35, 0.85);
-    backdrop-filter: blur(8px);
-  }
-
-  .header--scrolled {
-    background: var(--color-gray-50);
-  }
-
-  .header--scrolled .header__hamburger {
-    color: var(--color-primary-dark);
   }
 }
