@@ -40,10 +40,11 @@
   animation: pulse 2s ease-in-out infinite;
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .whatsapp-fab {
-    bottom: 16px;
-    right: 16px;
+    bottom: 90px;
+    left: 16px;
+    right: auto;
     width: 52px;
     height: 52px;
   }

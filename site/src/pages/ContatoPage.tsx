@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, type FormEvent, type ChangeEvent } from 'r
 import { ArrowRight, EnvelopeSimple, MapPin, Phone, WhatsappLogo, ChatsCircle } from '@phosphor-icons/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import FloatingChat from '../components/FloatingChat';
 import WhatsAppButton from '../components/WhatsAppButton';
 import ScrollToTop from '../components/ScrollToTop';
 import TransLink from '../components/TransLink';
@@ -515,7 +514,6 @@ export default function ContatoPage() {
       </main>
 
       <Footer />
-      <FloatingChat />
       <ScrollToTop />
       <WhatsAppButton />
     </>

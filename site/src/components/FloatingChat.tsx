@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { X, PaperPlaneRight } from '@phosphor-icons/react';
 import './FloatingChat.css';
 
 interface BotMessage {
   id: number;
   text: string;
-  delay: number; // ms após abertura
+  delay: number;
 }
 
 const BOT_MESSAGES: BotMessage[] = [
@@ -14,40 +14,119 @@ const BOT_MESSAGES: BotMessage[] = [
   { id: 3, text: 'Quer um diagnóstico gratuito? É só clicar abaixo 👇', delay: 3500 },
 ];
 
+/* Fases da sequência pré-abertura:
+   idle → typing → message (typewriter) → open */
+type PrePhase = 'idle' | 'typing' | 'message' | 'done';
+
+const PRE_MESSAGE = 'Quer ajuda para descobrir o que sua empresa está precisando?';
+
 export default function FloatingChat() {
   const [open, setOpen] = useState(false);
   const [visibleMsgs, setVisibleMsgs] = useState<number[]>([]);
   const [typing, setTyping] = useState(false);
   const [inputVal, setInputVal] = useState('');
-  const timersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const [prePhase, setPrePhase] = useState<PrePhase>('idle');
+  const [typewriterText, setTypewriterText] = useState('');
+  const [doneTyping, setDoneTyping] = useState(false);
+  const chatTimersRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const hasAutoOpened = useRef(false);
+  const hasBeenOpen = useRef(false);
 
-  // Ao abrir: exibe msgs com delays + dots de digitação
+  const clearChatTimers = useCallback(() => {
+    chatTimersRef.current.forEach(clearTimeout);
+    chatTimersRef.current = [];
+  }, []);
+
+  // Sequência pré-abertura: idle → typing (2s) → typewriter message → auto-open
+  useEffect(() => {
+    if (hasAutoOpened.current) return;
+
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    let twInterval: ReturnType<typeof setInterval> | null = null;
+
+    const t1 = setTimeout(() => setPrePhase('typing'), 2000);
+    const t2 = setTimeout(() => {
+      setPrePhase('message');
+      let i = 0;
+      setTypewriterText('');
+      twInterval = setInterval(() => {
+        i++;
+        setTypewriterText(PRE_MESSAGE.slice(0, i));
+        if (i >= PRE_MESSAGE.length) {
+          if (twInterval) clearInterval(twInterval);
+          twInterval = null;
+        }
+      }, 35);
+    }, 4500);
+    const t3 = setTimeout(() => {
+      if (!hasAutoOpened.current) {
+        hasAutoOpened.current = true;
+        setPrePhase('done');
+        setOpen(true);
+      }
+    }, 10000);
+
+    timers.push(t1, t2, t3);
+    return () => {
+      timers.forEach(clearTimeout);
+      if (twInterval) clearInterval(twInterval);
+    };
+  }, []);
+
+  // Ao abrir: exibe msgs do chat com delays + dots de digitação
   useEffect(() => {
     if (!open) {
-      // Limpa ao fechar
-      timersRef.current.forEach(clearTimeout);
-      setVisibleMsgs([]);
+      if (hasBeenOpen.current) {
+        clearChatTimers();
+        setVisibleMsgs([]);
+        setTyping(false);
+      }
       return;
     }
 
-    BOT_MESSAGES.forEach((msg, _i) => {
-      // Dots de digitação antes de cada msg
-      const dotTimer = setTimeout(() => setTyping(true), msg.delay - 600 < 0 ? 0 : msg.delay - 600);
+    hasBeenOpen.current = true;
+    // Marca sequência como concluída
+    setPrePhase('done');
+
+    BOT_MESSAGES.forEach((msg) => {
+      const dotTimer = setTimeout(
+        () => setTyping(true),
+        Math.max(0, msg.delay - 600)
+      );
       const msgTimer = setTimeout(() => {
         setTyping(false);
         setVisibleMsgs((prev) => [...prev, msg.id]);
       }, msg.delay);
-      timersRef.current.push(dotTimer, msgTimer);
+      chatTimersRef.current.push(dotTimer, msgTimer);
     });
 
-    return () => { timersRef.current.forEach(clearTimeout); };
-  }, [open]);
+    return () => clearChatTimers();
+  }, [open, clearChatTimers]);
 
   // Scroll para o fundo quando novas msgs aparecem
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [visibleMsgs, typing]);
+
+  const handleOpen = () => {
+    hasAutoOpened.current = true;
+    setPrePhase('done');
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setDoneTyping(false);
+  };
+
+  // Quando chat fecha e prePhase é 'done', mostra dots → mensagem
+  useEffect(() => {
+    if (open || prePhase !== 'done') return;
+    setDoneTyping(false);
+    const t = setTimeout(() => setDoneTyping(true), 1500);
+    return () => clearTimeout(t);
+  }, [open, prePhase]);
 
   const handleCTA = () => {
     window.location.href = '#contato';
@@ -57,17 +136,57 @@ export default function FloatingChat() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!inputVal.trim()) return;
-    // Redireciona para o formulário de contato com contexto
     window.location.href = '#contato';
     setOpen(false);
   };
 
   return (
-    <div className={`floating-chat${open ? ' floating-chat--open' : ''}`} role="region" aria-label="Chat de atendimento">
-      {/* Balão de mensagem pré-abertura */}
-      {!open && (
-        <div className="floating-chat__teaser" aria-hidden="true">
-          Fale com a gente!
+    <div
+      className={`floating-chat${open ? ' floating-chat--open' : ''}`}
+      role="region"
+      aria-label="Chat de atendimento"
+    >
+      {/* Sequência pré-abertura: typing dots → mensagem */}
+      {!open && prePhase === 'typing' && (
+        <div className="floating-chat__pre-bubble floating-chat__pre-bubble--typing" aria-hidden="true">
+          <span className="floating-chat__dot" />
+          <span className="floating-chat__dot" />
+          <span className="floating-chat__dot" />
+        </div>
+      )}
+
+      {!open && prePhase === 'message' && (
+        <div className="floating-chat__pre-bubble floating-chat__pre-bubble--msg" aria-hidden="true">
+          <p>
+            {typewriterText.length <= 32
+              ? typewriterText
+              : (
+                  <>
+                    {PRE_MESSAGE.slice(0, 32)}
+                    <strong>{typewriterText.slice(32, 59)}</strong>
+                    {typewriterText.slice(59)}
+                  </>
+                )}
+            <span className="floating-chat__cursor">|</span>
+          </p>
+        </div>
+      )}
+
+      {!open && prePhase === 'done' && !doneTyping && (
+        <div className="floating-chat__pre-bubble floating-chat__pre-bubble--typing" aria-hidden="true">
+          <span className="floating-chat__dot" />
+          <span className="floating-chat__dot" />
+          <span className="floating-chat__dot" />
+        </div>
+      )}
+
+      {!open && prePhase === 'done' && doneTyping && (
+        <div className="floating-chat__pre-bubble floating-chat__pre-bubble--msg" aria-hidden="true">
+          <p>
+            {PRE_MESSAGE.slice(0, 32)}
+            <strong>{PRE_MESSAGE.slice(32, 59)}</strong>
+            {PRE_MESSAGE.slice(59)}
+          </p>
         </div>
       )}
 
@@ -87,7 +206,7 @@ export default function FloatingChat() {
             </div>
             <button
               className="floating-chat__close"
-              onClick={() => setOpen(false)}
+              onClick={handleClose}
               aria-label="Fechar chat"
             >
               <X size={18} weight="bold" />
@@ -102,7 +221,6 @@ export default function FloatingChat() {
               </div>
             ))}
 
-            {/* Dots de digitação */}
             {typing && (
               <div className="floating-chat__msg floating-chat__msg--bot floating-chat__msg--typing" aria-label="Digitando...">
                 <span className="floating-chat__dot" />
@@ -111,7 +229,6 @@ export default function FloatingChat() {
               </div>
             )}
 
-            {/* CTA após última mensagem */}
             {visibleMsgs.includes(3) && (
               <button className="floating-chat__cta-btn btn btn--primary" onClick={handleCTA}>
                 Solicitar Diagnóstico Gratuito
@@ -121,7 +238,7 @@ export default function FloatingChat() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input (envia para o formulário de contato) */}
+          {/* Input */}
           <form className="floating-chat__input-area" onSubmit={handleSubmit}>
             <input
               type="text"
@@ -142,17 +259,17 @@ export default function FloatingChat() {
         </div>
       )}
 
-      {/* Botão toggle */}
-      <button
-        className="floating-chat__toggle"
-        onClick={() => setOpen((v) => !v)}
-        aria-label={open ? 'Fechar chat' : 'Abrir chat'}
-        aria-expanded={open}
-      >
-        {open ? <X size={24} weight="bold" /> : (
+      {/* Botão toggle — só aparece quando chat está fechado */}
+      {!open && (
+        <button
+          className="floating-chat__toggle"
+          onClick={handleOpen}
+          aria-label="Abrir chat"
+          aria-expanded={false}
+        >
           <img src="/emilie.jpg" alt="Fale com a gente" className="floating-chat__toggle-photo" />
-        )}
-      </button>
+        </button>
+      )}
     </div>
   );
 }

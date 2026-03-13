@@ -176,7 +176,7 @@
     max-width: 550px;
     margin: 40px auto;
     padding: 0 20px;
-    padding-right: 555px;
+    padding-right: 20px;
   }
 
   .about__highlight-item strong {
@@ -213,6 +213,15 @@
   }
 
   .about__badge-year {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
+  }
+
+  .about__texts {
+    grid-template-columns: 1fr;
+    gap: var(--space-sm);
+  }
+
+  .about__content--full .about__highlights {
+    grid-template-columns: 1fr;
   }
 }

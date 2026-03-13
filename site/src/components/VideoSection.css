@@ -28,9 +28,9 @@
   inset: 0;
   background: linear-gradient(
     160deg,
-    rgba(5, 20, 35, 0.82) 0%,
-    rgba(5, 20, 35, 0.65) 50%,
-    rgba(19, 156, 184, 0.45) 100%
+    rgba(5, 20, 35, 0.75) 0%,
+    rgba(5, 20, 35, 0.55) 50%,
+    rgba(19, 156, 184, 0.35) 100%
   );
   z-index: 1;
 }
@@ -133,11 +133,34 @@
 /* — Responsivo — */
 @media (max-width: 768px) {
   .video-section {
-    min-height: 60vh;
+    min-height: auto;
+  }
+
+  .video-section__video {
+    object-position: center center;
   }
 
   .video-section__content {
     align-items: center;
     text-align: center;
+    padding-top: var(--space-2xl, 4rem);
+    padding-bottom: var(--space-2xl, 4rem);
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-section {
+    min-height: 45vh;
+  }
+
+  .video-section__content {
+    padding-top: var(--space-xl, 3rem);
+    padding-bottom: var(--space-xl, 3rem);
+  }
+
+  .video-section__toggle {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.8rem;
   }
 }

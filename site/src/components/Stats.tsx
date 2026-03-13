@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Briefcase, UsersThree, Trophy, CalendarBlank } from '@phosphor-icons/react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useCountUp } from '../hooks/useCountUp';
+import mascoteAnalisa from '../assets/mascoteanalisa.png';
 import './Stats.css';
 
 interface StatItem {
@@ -29,6 +30,14 @@ function StatCard({ stat, isVisible, index }: { stat: StatItem; isVisible: boole
 
   return (
     <div className={`stats__card stagger-${index + 1} ${isVisible ? 'visible' : ''}`}>
+      {index === 0 && (
+        <img 
+          src={mascoteAnalisa} 
+          alt="Mascote Ibmec Jr. Analisa" 
+          className="stats__card-mascot"
+          loading="lazy"
+        />
+      )}
       <div className="stats__icon">{stat.icon}</div>
       <span className="stats__number">{display}</span>
       <span className="stats__label">{stat.label}</span>

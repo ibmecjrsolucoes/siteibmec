@@ -200,10 +200,26 @@
 
 @media (max-width: 480px) {
   .contact__form-wrapper {
-    padding: var(--space-lg);
+    padding: var(--space-md);
   }
 
   .contact__row {
     grid-template-columns: 1fr;
+  }
+
+  .contact__detail {
+    flex-direction: column;
+    text-align: center;
+    gap: var(--space-xs);
+  }
+
+  .contact__form-title {
+    font-size: 1.1rem;
+  }
+
+  .contact__field input,
+  .contact__field select,
+  .contact__field textarea {
+    font-size: 16px; /* previne zoom no iOS */
   }
 }

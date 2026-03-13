@@ -6,38 +6,28 @@ import './Testimonials.css';
 interface Testimonial {
   quote: string;
   name: string;
-  role: string;
-  company: string;
 }
 
 const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      'A equipe da Ibmec Jr. é extremamente profissional e nos atendeu de forma personalizada. Conseguiram organizar muito bem a estrutura da nossa empresa, fornecendo uma direção clara para o futuro do negócio.',
-    name: 'Maria Santos',
-    role: 'Fundadora',
-    company: 'Studio Criativo',
+      'Fui sem saber muito o que queria, hoje percebo que foi a melhor decisão possível! Obrigado. Ótimos planos, membros muito preparados e receptivos!',
+    name: 'Felipe Sigaud',
   },
   {
     quote:
-      'O que mais nos marcou foi como conseguiram transformar algo complexo em simples. Essa clareza nos deu a confiança de que estávamos diante de uma estratégia capaz de mudar nossos resultados.',
-    name: 'Carlos Mendes',
-    role: 'Diretor Comercial',
-    company: 'TechStart',
+      'É contratar o serviço da Ibmec Jr que a empresa decola. Parece mágica. Recomendo de olhos fechados!',
+    name: 'Júlia Marchi',
   },
   {
     quote:
-      'Quero muito agradecer a Ibmec Jr. que nos ajudou nesse processo de transformação das ideias e organização. A forma de trabalho faz com que a gente consiga entender plenamente nosso negócio.',
-    name: 'Ana Lima',
-    role: 'CEO',
-    company: 'Parceirada do Bem',
+      'Uma das melhores empresas juniores do país.',
+    name: 'Victor Belchior',
   },
   {
     quote:
-      'Tive o prazer de ter uma equipe que cuidou do projeto da minha empresa com uma sensibilidade e profissionalismo que me comoveu. Resultados acima das expectativas.',
-    name: 'Juliana Fagundes',
-    role: 'Proprietária',
-    company: 'Seja Luz',
+      'Ótima empresa, trabalho maravilhoso.',
+    name: 'Gabriela',
   },
 ];
 
@@ -110,15 +100,7 @@ export default function Testimonials() {
               {current.quote}
             </blockquote>
             <div className="testimonials__author">
-              <div className="testimonials__avatar">
-                {current.name.charAt(0)}
-              </div>
-              <div>
-                <strong className="testimonials__name">{current.name}</strong>
-                <span className="testimonials__role">
-                  {current.role} — {current.company}
-                </span>
-              </div>
+              <strong className="testimonials__name">{current.name}</strong>
             </div>
           </div>
 

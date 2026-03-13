@@ -19,6 +19,7 @@ html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: var(--header-height);
+  overflow-x: hidden;
 }
 
 body {
@@ -270,4 +271,47 @@ input, textarea, select {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-2);
+}
+
+/* — Mobile: reduzir padding das seções — */
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 5vw, 2rem);
+  }
+
+  .btn--lg {
+    padding: 0.8rem 1.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section {
+    padding: var(--space-xl) 0;
+  }
+
+  .section-header {
+    margin-bottom: var(--space-lg);
+  }
+}
+
+/* — Quando menu mobile está aberto, header fica acima de tudo (incluindo widgets externos) — */
+body.mobile-menu-open .header {
+  z-index: 2147483647 !important;
+}
+
+/* — Esconder elementos flutuantes quando menu mobile está aberto — */
+body.mobile-menu-open .floating-chat,
+body.mobile-menu-open .scroll-to-top,
+body.mobile-menu-open .whatsapp-fab {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }

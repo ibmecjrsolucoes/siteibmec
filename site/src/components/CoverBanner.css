@@ -23,5 +23,14 @@
     height: 22vw;
     min-height: 100px;
     max-height: 200px;
+    background-size: cover;
+  }
+}
+
+@media (max-width: 480px) {
+  .cover-banner {
+    height: 20vw;
+    min-height: 80px;
+    max-height: 150px;
   }
 }

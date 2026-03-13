@@ -733,6 +733,77 @@
 
 @media (max-width: 480px) {
   .sn-hero__title { font-size: 2rem; }
-  .sn-hero__actions { flex-direction: column; }
-  .sn-cta__actions { flex-direction: column; align-items: center; }
+
+  .sn-hero__content {
+    padding-top: 90px;
+    padding-bottom: 56px;
+  }
+
+  .sn-hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .sn-hero__btn {
+    width: 100%;
+    text-align: center;
+    min-height: 48px;
+  }
+
+  .sn-cta__actions {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .sn-cta__btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .sn-cta {
+    padding: 56px 0;
+  }
+
+  .sn-section {
+    padding: 48px 0;
+  }
+
+  .sn-section__header {
+    margin-bottom: 36px;
+  }
+
+  .sn-numeros {
+    padding: 36px 0;
+  }
+
+  .sn-numeros__item {
+    padding: 10px 16px;
+  }
+
+  .sn-historia {
+    gap: 32px;
+  }
+
+  .sn-quote {
+    padding: 24px 20px;
+  }
+
+  .sn-quote p {
+    font-size: 1rem;
+  }
+
+  .sn-valores,
+  .sn-vm-card {
+    padding: 24px 20px;
+  }
+
+  .sn-membro__body {
+    padding: 20px 20px 24px;
+  }
+
+  .sn-hero__photo {
+    border-radius: 12px;
+    margin-top: 32px;
+  }
 }

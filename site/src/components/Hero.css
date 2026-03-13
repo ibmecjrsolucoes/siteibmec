@@ -24,15 +24,23 @@
   pointer-events: none;
 }
 
+/* No mobile: vídeo fica como background sutil */
+@media (max-width: 768px) {
+  .hero__bg-video {
+    object-position: center center;
+    opacity: 0.4;
+  }
+}
+
 /* — Overlay escuro — */
 .hero__overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     160deg,
-    rgba(5, 20, 35, 0.94) 0%,
-    rgba(5, 20, 35, 0.90) 50%,
-    rgba(5, 20, 35, 0.94) 100%
+    rgba(5, 20, 35, 0.82) 0%,
+    rgba(5, 20, 35, 0.72) 50%,
+    rgba(5, 20, 35, 0.82) 100%
   );
   z-index: 1;
 }
@@ -236,14 +244,76 @@
     justify-content: center;
     flex-direction: column;
     align-items: stretch;
+    width: 100%;
+    padding: 0 var(--space-sm);
   }
 
   .hero__actions .btn {
     text-align: center;
+    min-height: 48px;
   }
 
   .hero__badges {
     justify-content: center;
     gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .hero__badge {
+    animation: none;
+  }
+
+  .hero__scroll {
+    bottom: var(--space-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__content {
+    padding-top: calc(var(--space-lg) + 70px);
+    padding-bottom: var(--space-xl);
+  }
+
+  .hero__label {
+    font-size: 0.65rem;
+    letter-spacing: 2px;
+    padding: 0.35rem 0.9rem;
+  }
+
+  .hero__badges {
+    gap: var(--space-sm);
+  }
+
+  .hero__badge-num {
+    font-size: clamp(1.2rem, 5vw, 1.6rem);
+  }
+
+  .hero__badge-label {
+    font-size: 0.65rem;
+  }
+
+  .hero__badge-divider {
+    height: 28px;
+  }
+
+  .hero__actions .btn--lg {
+    padding: 0.85rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero__title {
+    font-size: 1.75rem;
+  }
+
+  .hero__badges {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__badge-divider {
+    width: 40px;
+    height: 1px;
   }
 }

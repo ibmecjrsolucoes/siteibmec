@@ -7,28 +7,74 @@
   bottom: 24px;
   left: 24px;
   z-index: var(--z-float, 900);
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-sm);
 }
 
-/* — Balão pré-abertura — */
-.floating-chat__teaser {
+/* — Balões pré-abertura (sequência: typing → mensagem) — */
+.floating-chat__pre-bubble {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 0;
   background: var(--color-white);
   border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
-  padding: 0.55rem 1rem;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.14);
+  animation: preBubbleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  z-index: 2;
+}
+
+.floating-chat__pre-bubble--typing {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.75rem 1.2rem;
+}
+
+.floating-chat__pre-bubble--msg {
+  padding: 0.85rem 1.1rem;
+  max-width: 280px;
+}
+
+.floating-chat__pre-bubble--msg p {
   font-size: var(--fs-small);
   font-weight: var(--fw-medium);
   color: var(--color-gray-900);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
-  animation: fadeInUp 0.5s 3s ease both;
-  white-space: nowrap;
-  pointer-events: none;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.floating-chat__pre-bubble--msg strong {
+  font-weight: var(--fw-bold);
+  color: var(--color-primary-dark);
+}
+
+.floating-chat__cursor {
+  display: inline-block;
+  color: var(--color-primary-3);
+  font-weight: var(--fw-bold);
+  animation: cursorBlink 0.7s step-end infinite;
+  margin-left: 1px;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes preBubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 /* — Janela do chat — */
 .floating-chat__window {
+  position: absolute;
+  bottom: 0;
+  left: 0;
   width: clamp(300px, 90vw, 360px);
   background: var(--color-white);
   border-radius: var(--radius-xl);
@@ -37,7 +83,8 @@
   display: flex;
   flex-direction: column;
   animation: slideUpFade 0.35s ease both;
-  max-height: 480px;
+  max-height: min(480px, calc(100vh - 60px));
+  z-index: 3;
 }
 
 @keyframes slideUpFade {
@@ -222,7 +269,6 @@
   justify-content: center;
   box-shadow: 0 4px 20px rgba(4, 219, 242, 0.4);
   transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-  align-self: flex-start;
   overflow: hidden;
   padding: 0;
   position: relative;
@@ -251,15 +297,7 @@
   pointer-events: none;
 }
 
-/* Quando aberto, mostra X sobre fundo gradiente */
-.floating-chat--open .floating-chat__toggle {
-  background: var(--gradient-main);
-  overflow: visible;
-}
-
-.floating-chat--open .floating-chat__toggle::after {
-  display: none;
-}
+/* Estilos removidos — toggle é escondido quando chat está aberto */
 
 .floating-chat__toggle:hover {
   transform: scale(1.08);
@@ -269,13 +307,30 @@
 /* ================================
    Mobile
    ================================ */
+@media (max-width: 768px) {
+  .floating-chat__window {
+    width: calc(100vw - 32px);
+    left: -8px;
+    max-height: 70vh;
+  }
+}
+
 @media (max-width: 480px) {
   .floating-chat {
     bottom: 16px;
     left: 16px;
   }
 
-  .floating-chat__window {
-    width: calc(100vw - 32px);
+  .floating-chat__toggle {
+    width: 52px;
+    height: 52px;
+  }
+
+  .floating-chat__pre-bubble--msg {
+    max-width: calc(100vw - 100px);
+  }
+
+  .floating-chat__pre-bubble--msg p {
+    font-size: 0.8rem;
   }
 }

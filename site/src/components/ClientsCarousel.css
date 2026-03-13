@@ -10,20 +10,21 @@
 /* Wrapper com overflow hidden para mascarar as bordas */
 .carousel__wrapper {
   position: relative;
-  overflow: hidden;
+  overflow: clip;
+  padding: var(--space-md) 0;
   /* Fade nas bordas laterais */
   mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 3%,
+    black 97%,
     transparent 100%
   );
   -webkit-mask-image: linear-gradient(
     to right,
     transparent 0%,
-    black 8%,
-    black 92%,
+    black 3%,
+    black 97%,
     transparent 100%
   );
 }
@@ -46,21 +47,26 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 64px;
-  padding: var(--space-sm) var(--space-md);
+  min-width: 180px;
+  height: 80px;
+  padding: var(--space-md) var(--space-xl);
   border-radius: var(--radius-md);
   background: var(--color-white);
   border: 1px solid var(--color-gray-100);
-  transition: all var(--transition-base);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   flex-shrink: 0;
-  filter: grayscale(1) opacity(0.55);
+  filter: grayscale(0) opacity(1);
 }
 
 .carousel__item:hover {
   filter: grayscale(0) opacity(1);
-  border-color: rgba(4, 219, 242, 0.35);
-  box-shadow: 0 4px 16px rgba(4, 219, 242, 0.12);
-  transform: translateY(-2px);
+  border-color: rgba(4, 219, 242, 0.45);
+  box-shadow:
+    0 4px 20px rgba(4, 219, 242, 0.18),
+    0 0 40px rgba(4, 219, 242, 0.08),
+    inset 0 0 12px rgba(4, 219, 242, 0.04);
+  transform: translateY(-4px) scale(1.05);
+  background: linear-gradient(135deg, #fff 0%, rgba(4, 219, 242, 0.03) 100%);
 }
 
 .carousel__logo-svg {
@@ -69,6 +75,54 @@
 }
 
 .carousel__logo-img {
-  width: 100px; 
-  height: 40px; / 
+  max-width: 160px;
+  max-height: 56px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+
+/* — Responsivo — */
+@media (max-width: 768px) {
+  .clients-carousel {
+    padding-bottom: var(--space-xl);
+  }
+
+  .carousel__track {
+    gap: var(--space-md);
+    animation-duration: 20s;
+  }
+
+  .carousel__item {
+    min-width: 170px;
+    height: 76px;
+    padding: var(--space-sm) var(--space-lg);
+    filter: grayscale(0) opacity(1);
+  }
+
+  .carousel__logo-img {
+    max-width: 140px;
+    max-height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-carousel {
+    padding-bottom: var(--space-lg);
+  }
+
+  .carousel__item {
+    min-width: 150px;
+    height: 68px;
+    padding: var(--space-sm) var(--space-md);
+  }
+
+  .carousel__logo-img {
+    max-width: 120px;
+    max-height: 44px;
+  }
+
+  .carousel__track {
+    gap: var(--space-sm);
+  }
 }

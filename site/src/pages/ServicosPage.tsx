@@ -16,7 +16,6 @@ import {
 } from '@phosphor-icons/react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import FloatingChat from '../components/FloatingChat';
 import WhatsAppButton from '../components/WhatsAppButton';
 import ScrollToTop from '../components/ScrollToTop';
 import './ServicosPage.css';
@@ -311,7 +310,6 @@ export default function ServicosPage() {
       </main>
 
       <Footer />
-      <FloatingChat />
       <ScrollToTop />
       <WhatsAppButton />
     </>

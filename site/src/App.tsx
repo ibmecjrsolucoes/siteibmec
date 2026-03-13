@@ -9,7 +9,6 @@ import Methodology from './components/Methodology'
 import Testimonials from './components/Testimonials'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import FloatingChat from './components/FloatingChat'
 import ScrollToTop from './components/ScrollToTop'
 import VideoSection from './components/VideoSection'
 import WhatsAppButton from './components/WhatsAppButton'
@@ -35,7 +34,6 @@ function HomePage() {
         <Contact />
       </main>
       <Footer />
-      <FloatingChat />
       <ScrollToTop />
       <WhatsAppButton />
     </>

@@ -738,6 +738,94 @@
   }
 }
 
+@media (max-width: 480px) {
+  .ct-hero {
+    min-height: 80vh;
+  }
+
+  .ct-hero__content {
+    padding-top: 90px;
+    padding-bottom: 60px;
+  }
+
+  .ct-hero__title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
+  .ct-hero__actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ct-hero__btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 48px;
+  }
+
+  .ct-contact-section {
+    padding: 60px 0 80px;
+  }
+
+  .ct-contact-grid {
+    gap: 32px;
+  }
+
+  .ct-form {
+    padding: 20px 16px 24px;
+    gap: 14px;
+  }
+
+  .ct-form-card__header {
+    padding: 20px 16px;
+  }
+
+  .ct-info-strip {
+    padding: 40px 0 36px;
+  }
+
+  .ct-info-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .ct-info-card__icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .ct-avatar-row {
+    flex-direction: column;
+    text-align: center;
+    padding: 16px;
+  }
+
+  /* Prevenir zoom no iOS */
+  .ct-field input,
+  .ct-field select,
+  .ct-field textarea {
+    font-size: 16px;
+  }
+
+  .ct-submit-btn {
+    min-height: 52px;
+  }
+}
+
+@media (max-width: 360px) {
+  .ct-hero__title {
+    font-size: 1.8rem;
+  }
+
+  .ct-info-card__body strong {
+    font-size: 0.65rem;
+  }
+
+  .ct-info-card__body span {
+    font-size: 0.8rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ct-hero__content,
   .ct-reveal,

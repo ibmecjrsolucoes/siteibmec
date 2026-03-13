@@ -163,3 +163,26 @@
     min-width: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .methodology__steps {
+    padding: 0;
+  }
+
+  .methodology__step {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .methodology__step-number {
+    width: 48px;
+    height: 48px;
+  }
+
+  .methodology__step-title {
+    font-size: 1rem;
+  }
+
+  .methodology__step-description {
+    font-size: 0.875rem;
+  }
+}

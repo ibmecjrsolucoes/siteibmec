@@ -14,6 +14,17 @@ export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0);
   const [displayed, setDisplayed] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     const current = ROTATING_WORDS[wordIndex];
@@ -38,7 +49,7 @@ export default function Hero() {
       {/* Vídeo de fundo em loop */}
       <video
         className="hero__bg-video"
-        src="/assets/homefinal.mp4"
+        src={isMobile ? "/assets/homemobile.mp4" : "/assets/homefinal.mp4"}
         autoPlay
         loop
         muted
