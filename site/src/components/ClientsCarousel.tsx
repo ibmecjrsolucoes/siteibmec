@@ -1,6 +1,5 @@
 import './ClientsCarousel.css';
 
-/* SVG placeholder usado quando não há logo real */
 function LogoPlaceholder({ name }: { name: string }) {
   const initials = name
     .split(' ')
@@ -33,19 +32,18 @@ function LogoPlaceholder({ name }: { name: string }) {
   );
 }
 
+
 const CLIENTS = [
-  'Studio Criativo',
-  'TechStart',
-  'Parceirada do Bem',
-  'Seja Luz',
-  'Consultoria Prime',
-  'Grupo Nexus',
-  'Agência Delta',
-  'InnovateLab',
-  'Rede Connect',
-  'Startup Hub RJ',
-  'Empresa Alfa',
-  'Empresa Beta',
+  { name: 'RedBull', logo: './logo/redbull.png' },
+  { name: 'Ibmec', logo: './logo/ibmec.png' },
+  { name: 'Ternium', logo: './logo/ternium.png' },
+  { name: 'Axa', logo: './logo/axa.png' }, 
+  { name: 'Aqua Rio', logo: './logo/aquario.png' },
+  { name: 'Bondinho', logo: './logo/bondinho.png' },
+  { name: 'Ambev', logo: './logo/ambev.png' },
+  { name: 'Bw2', logo: './logo/bw2.png' },
+  { name: 'Michelin', logo: './logo/michelin.png' },
+  { name: 'Sebrae', logo: './logo/sebrae.png' },
 ];
 
 export default function ClientsCarousel() {
@@ -65,9 +63,17 @@ export default function ClientsCarousel() {
       {/* Track fora do container para ir de borda a borda */}
       <div className="carousel__wrapper" aria-hidden="true">
         <div className="carousel__track">
-          {items.map((name, i) => (
-            <div key={`${name}-${i}`} className="carousel__item" title={name}>
-              <LogoPlaceholder name={name} />
+          {items.map((client, i) => (
+            <div key={`${client.name}-${i}`} className="carousel__item" title={client.name}>
+              {client.logo ? (
+                <img 
+                  src={client.logo} 
+                  alt={`Logo da ${client.name}`} 
+                  className="carousel__logo-img" 
+                />
+              ) : (
+                <LogoPlaceholder name={client.name} />
+              )}
             </div>
           ))}
         </div>
