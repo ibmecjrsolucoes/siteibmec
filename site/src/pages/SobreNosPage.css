@@ -410,6 +410,11 @@
   padding: 32px 28px;
 }
 
+.sn-valores:hover {
+  background: rgba(4, 219, 242, 0.06);
+  border-color: rgba(4, 219, 242, 0.25);
+}
+
 .sn-valores__list {
   list-style: none;
   padding: 0;
