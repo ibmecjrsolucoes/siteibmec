@@ -5,17 +5,29 @@ import './Contact.css';
 interface FormData {
   nome: string;
   email: string;
-  celular: string;
-  assunto: string;
-  mensagem: string;
+  empresa: string;
+  cargo: string;
+  funcionarios: string;
+  segmento: string;
+  servico: string;
+  servicoOutro: string;
+  desafioPrincipal: string;
+  prazoSolucao: string;
+  resultadoEsperado: string;
 }
 
 const INITIAL_FORM: FormData = {
   nome: '',
   email: '',
-  celular: '',
-  assunto: '',
-  mensagem: '',
+  empresa: '',
+  cargo: '',
+  funcionarios: '',
+  segmento: '',
+  servico: '',
+  servicoOutro: '',
+  desafioPrincipal: '',
+  prazoSolucao: '',
+  resultadoEsperado: '',
 };
 
 const WHATSAPP_NUMBER = '5521967031003';
@@ -32,11 +44,25 @@ export default function Contact() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    /* Monta mensagem para WhatsApp como fallback */
-    const message = encodeURIComponent(
-      `Olá! Me chamo ${form.nome}.\n\nAssunto: ${form.assunto}\n\n${form.mensagem}\n\nContato: ${form.email} | ${form.celular}`
-    );
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
+    const servicoFinal = form.servico === 'Outro' ? `Outro: ${form.servicoOutro}` : form.servico;
+    const lines = [
+      '🎓 *Nova mensagem pelo site — IBMEC Jr.*',
+      '',
+      `👤 *Nome:* ${form.nome}`,
+      `📧 *E-mail:* ${form.email}`,
+      `🏢 *Empresa:* ${form.empresa}`,
+      `💼 *Cargo:* ${form.cargo}`,
+      `👥 *Quantidade de funcionários:* ${form.funcionarios}`,
+      `🏷️ *Segmento da empresa:* ${form.segmento}`,
+      `🧩 *Serviço procurado:* ${servicoFinal}`,
+      `⚠️ *Principal desafio atual:* ${form.desafioPrincipal}`,
+      `⏱️ *Prazo esperado para solução:* ${form.prazoSolucao}`,
+      `🎯 *Resultado esperado:* ${form.resultadoEsperado}`,
+      '',
+      '---',
+      '_Enviado via ibmecjr.com.br_',
+    ].join('\n');
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`, '_blank', 'noopener');
     setSubmitted(true);
     setForm(INITIAL_FORM);
     setTimeout(() => setSubmitted(false), 5000);
@@ -157,48 +183,136 @@ export default function Contact() {
                     />
                   </div>
                   <div className="contact__field">
-                    <label htmlFor="celular">Celular</label>
+                    <label htmlFor="empresa">Como a sua empresa se chama? *</label>
                     <input
-                      type="tel"
-                      id="celular"
-                      name="celular"
-                      value={form.celular}
+                      type="text"
+                      id="empresa"
+                      name="empresa"
+                      value={form.empresa}
                       onChange={handleChange}
-                      placeholder="(21) 99999-9999"
-                      autoComplete="tel"
+                      required
+                      placeholder="Nome da empresa"
+                      autoComplete="organization"
                     />
                   </div>
                 </div>
 
+                <div className="contact__row">
+                  <div className="contact__field">
+                    <label htmlFor="cargo">Qual o seu cargo nela? *</label>
+                    <input
+                      type="text"
+                      id="cargo"
+                      name="cargo"
+                      value={form.cargo}
+                      onChange={handleChange}
+                      required
+                      placeholder="Ex.: Diretor Comercial"
+                      autoComplete="organization-title"
+                    />
+                  </div>
+
+                  <div className="contact__field">
+                    <label htmlFor="funcionarios">Quantos funcionários ela possui? *</label>
+                    <select
+                      id="funcionarios"
+                      name="funcionarios"
+                      value={form.funcionarios}
+                      onChange={handleChange}
+                      required
+                    >
+                      <option value="">Selecione</option>
+                      <option value="1 - 20">1 - 20</option>
+                      <option value="21 - 60">21 - 60</option>
+                      <option value="61 - 90">61 - 90</option>
+                      <option value="91 - 200">91 - 200</option>
+                      <option value="+ 200">+ 200</option>
+                    </select>
+                  </div>
+                </div>
+
                 <div className="contact__field">
-                  <label htmlFor="assunto">Assunto *</label>
+                  <label htmlFor="segmento">Qual o segmento da empresa? *</label>
+                  <input
+                    type="text"
+                    id="segmento"
+                    name="segmento"
+                    value={form.segmento}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ex.: Educação, Varejo, Saúde"
+                  />
+                </div>
+
+                <div className="contact__field">
+                  <label htmlFor="servico">Qual serviço você está procurando? *</label>
                   <select
-                    id="assunto"
-                    name="assunto"
-                    value={form.assunto}
+                    id="servico"
+                    name="servico"
+                    value={form.servico}
                     onChange={handleChange}
                     required
                   >
-                    <option value="">Selecione um assunto</option>
-                    <option value="Plano Estratégico">Plano Estratégico</option>
-                    <option value="Plano de Marketing">Plano de Marketing</option>
-                    <option value="Mapeamento de Processos">Mapeamento de Processos</option>
-                    <option value="Pesquisa de Clientes">Pesquisa de Clientes</option>
-                    <option value="Análise de Dados">Análise de Dados e Automação</option>
-                    <option value="Desenvolvimento de Software">Desenvolvimento de Software</option>
+                    <option value="">Selecione um serviço</option>
+                    <option value="Vendas">Vendas</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Processos">Processos</option>
+                    <option value="Tech">Tech</option>
+                    <option value="Financeiro">Financeiro</option>
                     <option value="Outro">Outro</option>
                   </select>
                 </div>
 
+                {form.servico === 'Outro' && (
+                  <div className="contact__field">
+                    <label htmlFor="servicoOutro">Qual serviço? *</label>
+                    <input
+                      type="text"
+                      id="servicoOutro"
+                      name="servicoOutro"
+                      value={form.servicoOutro}
+                      onChange={handleChange}
+                      required
+                      placeholder="Descreva o serviço desejado"
+                    />
+                  </div>
+                )}
+
                 <div className="contact__field">
-                  <label htmlFor="mensagem">Conte-nos sobre seu projeto *</label>
+                  <label htmlFor="desafioPrincipal">Qual o principal desafio que sua empresa enfrenta hoje? *</label>
                   <textarea
-                    id="mensagem"
-                    name="mensagem"
-                    value={form.mensagem}
+                    id="desafioPrincipal"
+                    name="desafioPrincipal"
+                    value={form.desafioPrincipal}
                     onChange={handleChange}
                     required
-                    placeholder="Descreva brevemente o que sua empresa precisa..."
+                    placeholder="Descreva o problema atual da empresa"
+                    rows={4}
+                  />
+                </div>
+
+                <div className="contact__field">
+                  <label htmlFor="prazoSolucao">Em quanto tempo você precisa que a Ibmec Jr. Soluções solucione esse problema? *</label>
+                  <input
+                    type="text"
+                    id="prazoSolucao"
+                    name="prazoSolucao"
+                    value={form.prazoSolucao}
+                    onChange={handleChange}
+                    required
+                    placeholder="Ex.: Em 30 dias"
+                  />
+                </div>
+
+                <div className="contact__field">
+                  <label htmlFor="resultadoEsperado">Qual resultado você espera alcançar? *</label>
+                  <textarea
+                    id="resultadoEsperado"
+                    name="resultadoEsperado"
+                    value={form.resultadoEsperado}
+                    onChange={handleChange}
+                    required
+                    placeholder="Explique o resultado esperado para o projeto"
                     rows={4}
                   />
                 </div>

@@ -11,17 +11,29 @@ import './ContatoPage.css';
 interface FormData {
   nome: string;
   email: string;
-  celular: string;
-  assunto: string;
-  mensagem: string;
+  empresa: string;
+  cargo: string;
+  funcionarios: string;
+  segmento: string;
+  servico: string;
+  servicoOutro: string;
+  desafioPrincipal: string;
+  prazoSolucao: string;
+  resultadoEsperado: string;
 }
 
 const INITIAL_FORM: FormData = {
   nome: '',
   email: '',
-  celular: '',
-  assunto: '',
-  mensagem: '',
+  empresa: '',
+  cargo: '',
+  funcionarios: '',
+  segmento: '',
+  servico: '',
+  servicoOutro: '',
+  desafioPrincipal: '',
+  prazoSolucao: '',
+  resultadoEsperado: '',
 };
 
 const WHATSAPP_NUMBER = '5521967031003';
@@ -109,16 +121,20 @@ export default function ContatoPage() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    const servicoFinal = form.servico === 'Outro' ? `Outro: ${form.servicoOutro}` : form.servico;
     const lines = [
       '🎓 *Nova mensagem pelo site — IBMEC Jr.*',
       '',
       `👤 *Nome:* ${form.nome}`,
       `📧 *E-mail:* ${form.email}`,
-      form.celular ? `📱 *Celular:* ${form.celular}` : null,
-      `📌 *Área de interesse:* ${form.assunto}`,
-      '',
-      `💬 *Mensagem:*`,
-      form.mensagem,
+      `🏢 *Empresa:* ${form.empresa}`,
+      `💼 *Cargo:* ${form.cargo}`,
+      `👥 *Quantidade de funcionários:* ${form.funcionarios}`,
+      `🏷️ *Segmento da empresa:* ${form.segmento}`,
+      `🧩 *Serviço procurado:* ${servicoFinal}`,
+      `⚠️ *Principal desafio atual:* ${form.desafioPrincipal}`,
+      `⏱️ *Prazo esperado para solução:* ${form.prazoSolucao}`,
+      `🎯 *Resultado esperado:* ${form.resultadoEsperado}`,
       '',
       '---',
       '_Enviado via ibmecjr.com.br_',
@@ -350,48 +366,136 @@ export default function ContatoPage() {
                         />
                       </div>
                       <div className="ct-field">
-                        <label htmlFor="ct-celular">Celular</label>
+                        <label htmlFor="ct-empresa">Como a sua empresa se chama? *</label>
                         <input
-                          type="tel"
-                          id="ct-celular"
-                          name="celular"
-                          value={form.celular}
+                          type="text"
+                          id="ct-empresa"
+                          name="empresa"
+                          value={form.empresa}
                           onChange={handleChange}
-                          placeholder="(21) 99999-9999"
-                          autoComplete="tel"
+                          required
+                          placeholder="Nome da empresa"
+                          autoComplete="organization"
                         />
                       </div>
                     </div>
 
+                    <div className="ct-row">
+                      <div className="ct-field">
+                        <label htmlFor="ct-cargo">Qual o seu cargo nela? *</label>
+                        <input
+                          type="text"
+                          id="ct-cargo"
+                          name="cargo"
+                          value={form.cargo}
+                          onChange={handleChange}
+                          required
+                          placeholder="Ex.: Diretor Comercial"
+                          autoComplete="organization-title"
+                        />
+                      </div>
+
+                      <div className="ct-field">
+                        <label htmlFor="ct-funcionarios">Quantos funcionários ela possui? *</label>
+                        <select
+                          id="ct-funcionarios"
+                          name="funcionarios"
+                          value={form.funcionarios}
+                          onChange={handleChange}
+                          required
+                        >
+                          <option value="">Selecione</option>
+                          <option value="1 - 20">1 - 20</option>
+                          <option value="21 - 60">21 - 60</option>
+                          <option value="61 - 90">61 - 90</option>
+                          <option value="91 - 200">91 - 200</option>
+                          <option value="+ 200">+ 200</option>
+                        </select>
+                      </div>
+                    </div>
+
                     <div className="ct-field">
-                      <label htmlFor="ct-assunto">Área de interesse *</label>
+                      <label htmlFor="ct-segmento">Qual o segmento da empresa? *</label>
+                      <input
+                        type="text"
+                        id="ct-segmento"
+                        name="segmento"
+                        value={form.segmento}
+                        onChange={handleChange}
+                        required
+                        placeholder="Ex.: Educação, Varejo, Saúde"
+                      />
+                    </div>
+
+                    <div className="ct-field">
+                      <label htmlFor="ct-servico">Qual serviço você está procurando? *</label>
                       <select
-                        id="ct-assunto"
-                        name="assunto"
-                        value={form.assunto}
+                        id="ct-servico"
+                        name="servico"
+                        value={form.servico}
                         onChange={handleChange}
                         required
                       >
-                        <option value="">Selecione uma área</option>
-                        <option value="Plano Estratégico">Plano Estratégico</option>
-                        <option value="Plano de Marketing">Plano de Marketing</option>
-                        <option value="Mapeamento de Processos">Mapeamento de Processos</option>
-                        <option value="Pesquisa de Clientes">Pesquisa de Clientes</option>
-                        <option value="Análise de Dados">Análise de Dados e Automação</option>
-                        <option value="Desenvolvimento de Software">Desenvolvimento de Software</option>
+                        <option value="">Selecione um serviço</option>
+                        <option value="Vendas">Vendas</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Processos">Processos</option>
+                        <option value="Tech">Tech</option>
+                        <option value="Financeiro">Financeiro</option>
                         <option value="Outro">Outro</option>
                       </select>
                     </div>
 
+                    {form.servico === 'Outro' && (
+                      <div className="ct-field">
+                        <label htmlFor="ct-servico-outro">Qual serviço? *</label>
+                        <input
+                          type="text"
+                          id="ct-servico-outro"
+                          name="servicoOutro"
+                          value={form.servicoOutro}
+                          onChange={handleChange}
+                          required
+                          placeholder="Descreva o serviço desejado"
+                        />
+                      </div>
+                    )}
+
                     <div className="ct-field">
-                      <label htmlFor="ct-mensagem">Descreva seu desafio *</label>
+                      <label htmlFor="ct-desafio">Qual o principal desafio que sua empresa enfrenta hoje? *</label>
                       <textarea
-                        id="ct-mensagem"
-                        name="mensagem"
-                        value={form.mensagem}
+                        id="ct-desafio"
+                        name="desafioPrincipal"
+                        value={form.desafioPrincipal}
                         onChange={handleChange}
                         required
-                        placeholder="Conte-nos brevemente sobre a situação atual e o que espera alcançar..."
+                        placeholder="Descreva o problema atual da empresa"
+                        rows={4}
+                      />
+                    </div>
+
+                    <div className="ct-field">
+                      <label htmlFor="ct-prazo">Em quanto tempo você precisa que a Ibmec Jr. Soluções solucione esse problema? *</label>
+                      <input
+                        type="text"
+                        id="ct-prazo"
+                        name="prazoSolucao"
+                        value={form.prazoSolucao}
+                        onChange={handleChange}
+                        required
+                        placeholder="Ex.: Em 30 dias"
+                      />
+                    </div>
+
+                    <div className="ct-field">
+                      <label htmlFor="ct-resultado">Qual resultado você espera alcançar? *</label>
+                      <textarea
+                        id="ct-resultado"
+                        name="resultadoEsperado"
+                        value={form.resultadoEsperado}
+                        onChange={handleChange}
+                        required
+                        placeholder="Explique o resultado esperado para o projeto"
                         rows={4}
                       />
                     </div>
