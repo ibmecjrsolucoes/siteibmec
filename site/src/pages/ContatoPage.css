@@ -558,6 +558,12 @@
   color: var(--color-gray-500);
 }
 
+.ct-field__hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--color-gray-400);
+}
+
 .ct-field input,
 .ct-field select,
 .ct-field textarea {

@@ -291,6 +291,7 @@ export default function Contact() {
                       </label>
                     ))}
                   </div>
+                  <p className="contact__field-hint">Voce pode selecionar mais de uma opção.</p>
                 </div>
 
                 {form.servico.includes('Outro') && (

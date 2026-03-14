@@ -469,6 +469,7 @@ export default function ContatoPage() {
                           </label>
                         ))}
                       </div>
+                      <p className="ct-field__hint">Voce pode selecionar mais de uma opção.</p>
                     </div>
 
                     {form.servico.includes('Outro') && (

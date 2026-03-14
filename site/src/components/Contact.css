@@ -102,6 +102,12 @@
   margin-bottom: 6px;
 }
 
+.contact__field-hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--color-gray-400);
+}
+
 .contact__field input,
 .contact__field select,
 .contact__field textarea {
