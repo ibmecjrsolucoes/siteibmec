@@ -36,7 +36,7 @@ const INITIAL_FORM: FormData = {
   resultadoEsperado: '',
 };
 
-const WHATSAPP_NUMBER = '5521967031003';
+const WHATSAPP_NUMBER = '5522988329121';
 
 const INFO_CARDS = [
   {
