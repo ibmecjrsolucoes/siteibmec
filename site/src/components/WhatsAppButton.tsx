@@ -1,6 +1,6 @@
 import './WhatsAppButton.css';
 
-const WHATSAPP_NUMBER = '552298832-9121';
+const WHATSAPP_NUMBER = '5522988329121';
 const MESSAGE = encodeURIComponent('Olá! Gostaria de saber mais sobre os serviços da Ibmec Jr.');
 
 export default function WhatsAppButton() {
