@@ -9,7 +9,7 @@ interface FormData {
   cargo: string;
   funcionarios: string;
   segmento: string;
-  servico: string;
+  servico: string[];
   servicoOutro: string;
   desafioPrincipal: string;
   prazoSolucao: string;
@@ -23,7 +23,7 @@ const INITIAL_FORM: FormData = {
   cargo: '',
   funcionarios: '',
   segmento: '',
-  servico: '',
+  servico: [],
   servicoOutro: '',
   desafioPrincipal: '',
   prazoSolucao: '',
@@ -31,6 +31,7 @@ const INITIAL_FORM: FormData = {
 };
 
 const WHATSAPP_NUMBER = '5522988329121';
+const SERVICE_OPTIONS = ['Vendas', 'Marketing', 'Processos', 'Tech', 'Financeiro', 'Outro'] as const;
 
 export default function Contact() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -39,12 +40,36 @@ export default function Contact() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
+    if (name === 'servico' && e.target instanceof HTMLInputElement && e.target.type === 'checkbox') {
+      const input = e.target;
+      setForm((prev) => {
+        const nextServices = input.checked
+          ? [...prev.servico, value]
+          : prev.servico.filter((item) => item !== value);
+
+        return {
+          ...prev,
+          servico: nextServices,
+          servicoOutro: nextServices.includes('Outro') ? prev.servicoOutro : '',
+        };
+      });
+      return;
+    }
+
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const servicoFinal = form.servico === 'Outro' ? `Outro: ${form.servicoOutro}` : form.servico;
+    if (form.servico.length === 0) {
+      return;
+    }
+
+    const servicosSelecionados = form.servico.includes('Outro')
+      ? [...form.servico.filter((item) => item !== 'Outro'), `Outro: ${form.servicoOutro}`]
+      : form.servico;
+    const servicoFinal = servicosSelecionados.join(', ');
     const lines = [
       '🎓 *Nova mensagem pelo site — IBMEC Jr.*',
       '',
@@ -245,25 +270,30 @@ export default function Contact() {
                 </div>
 
                 <div className="contact__field">
-                  <label htmlFor="servico">Qual serviço você está procurando? *</label>
-                  <select
-                    id="servico"
-                    name="servico"
-                    value={form.servico}
-                    onChange={handleChange}
-                    required
-                  >
-                    <option value="">Selecione um serviço</option>
-                    <option value="Vendas">Vendas</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="Processos">Processos</option>
-                    <option value="Tech">Tech</option>
-                    <option value="Financeiro">Financeiro</option>
-                    <option value="Outro">Outro</option>
-                  </select>
+                  <label id="servico-label">Quais serviços você está procurando? *</label>
+                  <div className="contact__services-picker" role="group" aria-labelledby="servico-label">
+                    {SERVICE_OPTIONS.map((option, index) => (
+                      <label
+                        key={option}
+                        htmlFor={`servico-${option}`}
+                        className={`contact__service-option ${form.servico.includes(option) ? 'is-selected' : ''}`}
+                      >
+                        <input
+                          type="checkbox"
+                          id={`servico-${option}`}
+                          name="servico"
+                          value={option}
+                          checked={form.servico.includes(option)}
+                          onChange={handleChange}
+                          required={index === 0 && form.servico.length === 0}
+                        />
+                        <span>{option}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
 
-                {form.servico === 'Outro' && (
+                {form.servico.includes('Outro') && (
                   <div className="contact__field">
                     <label htmlFor="servicoOutro">Qual serviço? *</label>
                     <input
@@ -272,7 +302,7 @@ export default function Contact() {
                       name="servicoOutro"
                       value={form.servicoOutro}
                       onChange={handleChange}
-                      required
+                      required={form.servico.includes('Outro')}
                       placeholder="Descreva o serviço desejado"
                     />
                   </div>
