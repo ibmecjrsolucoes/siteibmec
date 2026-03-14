@@ -30,7 +30,7 @@ const INITIAL_FORM: FormData = {
   resultadoEsperado: '',
 };
 
-const WHATSAPP_NUMBER = '5521967031003';
+const WHATSAPP_NUMBER = '5522988329121';
 
 export default function Contact() {
   const { ref, isVisible } = useScrollAnimation({ threshold: 0.1 });
@@ -124,7 +124,7 @@ export default function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    (21) 96703-1003
+                    (22) 98832-9121
                   </a>
                 </div>
               </div>

@@ -60,7 +60,7 @@ const INFO_CARDS = [
   {
     icon: <WhatsappLogo size={28} weight="duotone" />,
     label: 'WhatsApp',
-    value: '(21) 96703-1003',
+    value: '(22) 98832-9121',
     href: `https://wa.me/${WHATSAPP_NUMBER}`,
   },
 ];
