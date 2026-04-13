@@ -137,7 +137,7 @@ export default function SobreNosPage() {
             </p>
             <div className="sn-hero__actions">
               <a
-                href="https://wa.me/5521967031003"
+                href="https://wa.me/552298832-9121"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="sn-hero__btn sn-hero__btn--primary"
@@ -315,7 +315,7 @@ export default function SobreNosPage() {
             </p>
             <div className="sn-cta__actions">
               <a
-                href="https://wa.me/5521967031003?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20diagn%C3%B3stico%20gratuito."
+                href="https://wa.me/552298832-9121?text=Ol%C3%A1%2C%20gostaria%20de%20fazer%20um%20diagn%C3%B3stico%20gratuito."
                 target="_blank"
                 rel="noopener noreferrer"
                 className="sn-cta__btn sn-cta__btn--white"

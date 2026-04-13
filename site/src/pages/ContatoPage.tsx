@@ -14,7 +14,7 @@ interface FormData {
   cargo: string;
   funcionarios: string;
   segmento: string;
-  servico: string;
+  servico: string[];
   servicoOutro: string;
   desafioPrincipal: string;
   prazoSolucao: string;
@@ -28,14 +28,15 @@ const INITIAL_FORM: FormData = {
   cargo: '',
   funcionarios: '',
   segmento: '',
-  servico: '',
+  servico: [],
   servicoOutro: '',
   desafioPrincipal: '',
   prazoSolucao: '',
   resultadoEsperado: '',
 };
 
-const WHATSAPP_NUMBER = '5521967031003';
+const WHATSAPP_NUMBER = '5522988329121';
+const SERVICE_OPTIONS = ['Vendas', 'Marketing', 'Processos', 'Tech', 'Financeiro', 'Outro'] as const;
 
 const INFO_CARDS = [
   {
@@ -59,7 +60,7 @@ const INFO_CARDS = [
   {
     icon: <WhatsappLogo size={28} weight="duotone" />,
     label: 'WhatsApp',
-    value: '(21) 96703-1003',
+    value: '(22) 98832-9121',
     href: `https://wa.me/${WHATSAPP_NUMBER}`,
   },
 ];
@@ -115,12 +116,32 @@ export default function ContatoPage() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
+    if (name === 'servico' && e.target instanceof HTMLInputElement && e.target.type === 'checkbox') {
+      const input = e.target;
+      setForm((prev) => {
+        const nextServices = input.checked
+          ? [...prev.servico, value]
+          : prev.servico.filter((item) => item !== value);
+
+        return {
+          ...prev,
+          servico: nextServices,
+          servicoOutro: nextServices.includes('Outro') ? prev.servicoOutro : '',
+        };
+      });
+      return;
+    }
+
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const servicoFinal = form.servico === 'Outro' ? `Outro: ${form.servicoOutro}` : form.servico;
+    const servicosSelecionados = form.servico.includes('Outro')
+      ? [...form.servico.filter((item) => item !== 'Outro'), `Outro: ${form.servicoOutro}`]
+      : form.servico;
+    const servicoFinal = servicosSelecionados.join(', ');
     const lines = [
       '🎓 *Nova mensagem pelo site — IBMEC Jr.*',
       '',
@@ -427,25 +448,30 @@ export default function ContatoPage() {
                     </div>
 
                     <div className="ct-field">
-                      <label htmlFor="ct-servico">Qual serviço você está procurando? *</label>
-                      <select
-                        id="ct-servico"
-                        name="servico"
-                        value={form.servico}
-                        onChange={handleChange}
-                        required
-                      >
-                        <option value="">Selecione um serviço</option>
-                        <option value="Vendas">Vendas</option>
-                        <option value="Marketing">Marketing</option>
-                        <option value="Processos">Processos</option>
-                        <option value="Tech">Tech</option>
-                        <option value="Financeiro">Financeiro</option>
-                        <option value="Outro">Outro</option>
-                      </select>
+                      <label id="ct-servico-label">Quais serviços você está procurando? *</label>
+                      <div className="ct-services-picker" role="group" aria-labelledby="ct-servico-label">
+                        {SERVICE_OPTIONS.map((option) => (
+                          <label
+                            key={option}
+                            htmlFor={`ct-servico-${option}`}
+                            className={`ct-service-option ${form.servico.includes(option) ? 'is-selected' : ''}`}
+                          >
+                            <input
+                              type="checkbox"
+                              id={`ct-servico-${option}`}
+                              name="servico"
+                              value={option}
+                              checked={form.servico.includes(option)}
+                              onChange={handleChange}
+                            />
+                            <span>{option}</span>
+                          </label>
+                        ))}
+                      </div>
+                      <p className="ct-field__hint">Voce pode selecionar mais de uma opção.</p>
                     </div>
 
-                    {form.servico === 'Outro' && (
+                    {form.servico.includes('Outro') && (
                       <div className="ct-field">
                         <label htmlFor="ct-servico-outro">Qual serviço? *</label>
                         <input
@@ -454,7 +480,7 @@ export default function ContatoPage() {
                           name="servicoOutro"
                           value={form.servicoOutro}
                           onChange={handleChange}
-                          required
+                          required={form.servico.includes('Outro')}
                           placeholder="Descreva o serviço desejado"
                         />
                       </div>

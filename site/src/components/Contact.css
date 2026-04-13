@@ -102,6 +102,12 @@
   margin-bottom: 6px;
 }
 
+.contact__field-hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--color-gray-400);
+}
+
 .contact__field input,
 .contact__field select,
 .contact__field textarea {
@@ -127,6 +133,60 @@
 .contact__field textarea {
   resize: vertical;
   min-height: 100px;
+}
+
+.contact__services-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.contact__service-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  color: var(--color-gray-500);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color var(--transition-fast), background var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+
+.contact__service-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.contact__service-option:hover {
+  border-color: rgba(19, 156, 184, 0.45);
+  background: rgba(4, 219, 242, 0.08);
+  color: var(--color-primary-dark);
+}
+
+.contact__service-option:has(input:focus-visible) {
+  border-color: var(--color-primary-2);
+  box-shadow: 0 0 0 3px rgba(4, 219, 242, 0.18);
+  background: var(--color-white);
+}
+
+.contact__service-option.is-selected {
+  border-color: var(--color-primary-2);
+  background: linear-gradient(135deg, rgba(4, 219, 242, 0.16), rgba(19, 156, 184, 0.14));
+  color: var(--color-primary-dark);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 8px 20px rgba(4, 219, 242, 0.15);
+}
+
+.contact__service-option.is-selected:hover {
+  transform: translateY(-1px);
 }
 
 .contact__row {
@@ -221,5 +281,9 @@
   .contact__field select,
   .contact__field textarea {
     font-size: 16px; /* previne zoom no iOS */
+  }
+
+  .contact__services-picker {
+    grid-template-columns: 1fr;
   }
 }

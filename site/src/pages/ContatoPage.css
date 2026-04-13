@@ -558,6 +558,12 @@
   color: var(--color-gray-500);
 }
 
+.ct-field__hint {
+  margin: 8px 0 0;
+  font-size: 0.78rem;
+  color: var(--color-gray-400);
+}
+
 .ct-field input,
 .ct-field select,
 .ct-field textarea {
@@ -585,6 +591,61 @@
 .ct-field textarea {
   resize: vertical;
   min-height: 110px;
+}
+
+.ct-services-picker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.ct-service-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1.5px solid var(--color-gray-200);
+  background: var(--color-gray-50);
+  color: var(--color-gray-500);
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  user-select: none;
+  transition: border-color 0.2s, background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.ct-service-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ct-service-option:hover {
+  border-color: rgba(19, 156, 184, 0.45);
+  background: rgba(4, 219, 242, 0.08);
+  color: var(--color-primary-dark);
+}
+
+.ct-service-option:has(input:focus-visible) {
+  outline: none;
+  border-color: var(--color-primary-2);
+  box-shadow: 0 0 0 3.5px rgba(4, 219, 242, 0.16);
+  background: #fff;
+}
+
+.ct-service-option.is-selected {
+  border-color: var(--color-primary-2);
+  background: linear-gradient(135deg, rgba(4, 219, 242, 0.16), rgba(19, 156, 184, 0.14));
+  color: var(--color-primary-dark);
+  font-weight: var(--fw-semibold);
+  box-shadow: 0 8px 22px rgba(4, 219, 242, 0.15);
+}
+
+.ct-service-option.is-selected:hover {
+  transform: translateY(-1px);
 }
 
 .ct-row {
@@ -711,6 +772,10 @@
   }
 
   .ct-row {
+    grid-template-columns: 1fr;
+  }
+
+  .ct-services-picker {
     grid-template-columns: 1fr;
   }
 

@@ -78,8 +78,8 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/5521967031003" target="_blank" rel="noopener noreferrer">
-                  (21) 96703-1003
+                <a href="https://wa.me/552298832-9121" target="_blank" rel="noopener noreferrer">
+                  (22) 98832-9121
                 </a>
               </li>
               <li>Rio de Janeiro — RJ</li>

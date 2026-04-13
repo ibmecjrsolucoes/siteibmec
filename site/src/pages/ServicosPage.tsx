@@ -193,7 +193,7 @@ function ProdutoCard({ produto }: { produto: Produto }) {
         ))}
       </ul>
       <a
-        href={`https://wa.me/5521967031003?text=${mensagem}`}
+        href={`https://wa.me/552298832-9121?text=${mensagem}`}
         target="_blank"
         rel="noopener noreferrer"
         className="sp-card__cta"
@@ -298,7 +298,7 @@ export default function ServicosPage() {
               </p>
             </div>
             <a
-              href="https://wa.me/5521967031003?text=Olá%2C%20gostaria%20de%20fazer%20um%20diagnóstico%20gratuito%20com%20a%20IBMEC%20Jr."
+              href="https://wa.me/552298832-9121?text=Olá%2C%20gostaria%20de%20fazer%20um%20diagnóstico%20gratuito%20com%20a%20IBMEC%20Jr."
               target="_blank"
               rel="noopener noreferrer"
               className="sp-cta__btn"
