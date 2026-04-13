@@ -55,7 +55,7 @@ const INFO_CARDS = [
     icon: <Phone size={28} weight="duotone" />,
     label: 'Telefone',
     value: '(22) 98832-9121',
-    href: 'tel:+552298832-9121',
+    href: 'tel:+5522988329121',
   },
   {
     icon: <WhatsappLogo size={28} weight="duotone" />,

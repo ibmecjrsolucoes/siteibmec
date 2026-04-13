@@ -78,7 +78,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/552298832-9121" target="_blank" rel="noopener noreferrer">
+                <a href="https://wa.me/5522988329121" target="_blank" rel="noopener noreferrer">
                   (22) 98832-9121
                 </a>
               </li>
