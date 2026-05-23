@@ -166,14 +166,14 @@ export default function Header({ forceScrolled = false }: HeaderProps) {
 
         <div className="header-mobile__actions">
           <a
-            href="https://forms.gle/X3NfETb3rcQUwQzC6"
+            href="#"
             className="header__ps"
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleNavClick}
           >
             <span className="header__ps-dot" aria-hidden="true" />
-            Processo Seletivo 2026.1
+            Processo Seletivo 2026.2
           </a>
           <a href={ctaHref} className="header__cta-mobile" onClick={handleNavClick}>
             Fale Conosco

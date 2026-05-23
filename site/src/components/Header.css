@@ -353,7 +353,7 @@
 
 /* ── Botão Processo Seletivo ── */
 .header__ps {
-  display: inline-flex;
+  display: none; /*Temporariamente none, até o próximo processo seletivo*/
   align-items: center;
   gap: 6px;
   padding: 0.42rem 0.95rem;
