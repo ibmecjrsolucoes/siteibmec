@@ -88,13 +88,15 @@ function useReveal(threshold = 0.15) {
 export default function ContatoPage() {
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, []);
 
-  const heroRef    = useRef<HTMLDivElement>(null);
-  const bgImgRef   = useRef<HTMLImageElement>(null);
-  const infoRef    = useReveal(0.1);
-  const formRef    = useReveal(0.12);
+  const heroRef = useRef<HTMLDivElement>(null);
+  const bgImgRef = useRef<HTMLImageElement>(null);
+  const infoRef = useReveal(0.1);
+  const formRef = useReveal(0.12);
 
-  const [form, setForm]           = useState<FormData>(INITIAL_FORM);
+  const [form, setForm] = useState<FormData>(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
 
   /* Entrada do hero */
   useEffect(() => {
@@ -136,33 +138,28 @@ export default function ContatoPage() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const servicosSelecionados = form.servico.includes('Outro')
-      ? [...form.servico.filter((item) => item !== 'Outro'), `Outro: ${form.servicoOutro}`]
-      : form.servico;
-    const servicoFinal = servicosSelecionados.join(', ');
-    const lines = [
-      '🎓 *Nova mensagem pelo site — IBMEC Jr.*',
-      '',
-      `👤 *Nome:* ${form.nome}`,
-      `📧 *E-mail:* ${form.email}`,
-      `🏢 *Empresa:* ${form.empresa}`,
-      `💼 *Cargo:* ${form.cargo}`,
-      `👥 *Quantidade de funcionários:* ${form.funcionarios}`,
-      `🏷️ *Segmento da empresa:* ${form.segmento}`,
-      `🧩 *Serviço procurado:* ${servicoFinal}`,
-      `⚠️ *Principal desafio atual:* ${form.desafioPrincipal}`,
-      `⏱️ *Prazo esperado para solução:* ${form.prazoSolucao}`,
-      `🎯 *Resultado esperado:* ${form.resultadoEsperado}`,
-      '',
-      '---',
-      '_Enviado via ibmecjr.com.br_',
-    ].filter((l) => l !== null).join('\n');
-    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines)}`, '_blank', 'noopener');
-    setSubmitted(true);
-    setForm(INITIAL_FORM);
-    setTimeout(() => setSubmitted(false), 6000);
+    setLoading(true);
+    setErro(null);
+
+    try {
+      const res = await fetch("http://localhost:8000/contato", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Erro ao enviar. Tente novamente.");
+
+      setSubmitted(true);
+      setForm(INITIAL_FORM);
+      setTimeout(() => setSubmitted(false), 6000);
+    } catch (err) {
+      setErro("Erro ao enviar. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -188,7 +185,7 @@ export default function ContatoPage() {
               {/* Breadcrumb */}
               <nav className="ct-breadcrumb" aria-label="Migalhas de pão">
                 <TransLink to="/">Início</TransLink>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg>
                 <span>Contato</span>
               </nav>
 
@@ -200,9 +197,9 @@ export default function ContatoPage() {
               </h1>
 
               <p className="ct-hero__sub">
-                Cada grande resultado começa com uma conversa. Conte-nos sobre 
-                o desafio da sua empresa e descubra como a IBMEC Jr. transforma 
-                estratégia em impacto real — com a energia de quem ainda 
+                Cada grande resultado começa com uma conversa. Conte-nos sobre
+                o desafio da sua empresa e descubra como a IBMEC Jr. transforma
+                estratégia em impacto real — com a energia de quem ainda
                 acredita que tudo é possível.
               </p>
 
@@ -296,8 +293,8 @@ export default function ContatoPage() {
                     <span className="ct-gradient-text">começa aqui.</span>
                   </h2>
                   <p className="ct-section-body">
-                    Nosso time de consultores entende que tempo é o seu ativo mais 
-                    precioso. Por isso, respondemos em até 24 horas com uma análise 
+                    Nosso time de consultores entende que tempo é o seu ativo mais
+                    precioso. Por isso, respondemos em até 24 horas com uma análise
                     inicial personalizada — sem compromisso, sem enrolação.
                   </p>
 
@@ -525,10 +522,12 @@ export default function ContatoPage() {
                       />
                     </div>
 
-                    <button type="submit" className="ct-submit-btn">
-                      Enviar mensagem
-                      <ArrowRight size={18} />
+                    <button type="submit" className="ct-submit-btn" disabled={loading}>
+                      {loading ? "Enviando..." : "Enviar mensagem"}
+                      {!loading && <ArrowRight size={18} />}
                     </button>
+
+                    {erro && <p style={{ color: "red", marginTop: 8, fontSize: 14 }}>{erro}</p>}
                   </form>
                 )}
               </div>
