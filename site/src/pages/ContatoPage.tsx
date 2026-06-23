@@ -150,7 +150,7 @@ export default function ContatoPage() {
         body: JSON.stringify(form),
       });
 
-      if (!res.ok) throw new Error("Erro ao enviar. Tente novamente.");
+      if (!res.ok) throw new Error("Erro ao enviar, tente novamente ou mande mensagem para nosso WhatsApp");
 
       setSubmitted(true);
       setForm(INITIAL_FORM);
