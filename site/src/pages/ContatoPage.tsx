@@ -156,7 +156,7 @@ export default function ContatoPage() {
       setForm(INITIAL_FORM);
       setTimeout(() => setSubmitted(false), 6000);
     } catch (err) {
-      setErro("Erro ao enviar. Tente novamente.");
+      setErro("Erro ao enviar, tente novamente ou mande mensagem para nosso WhatsApp");
     } finally {
       setLoading(false);
     }
